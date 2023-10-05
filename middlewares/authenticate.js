@@ -1,7 +1,10 @@
+// import Swal from 'sweetalert';
 const jwt = require("jsonwebtoken");
+
 
 let authenticate = async (request, response, next) => {
   try {
+   
     let token;
     if (
       request.headers.authorization &&
@@ -10,7 +13,9 @@ let authenticate = async (request, response, next) => {
       token = request.headers.authorization.split(" ")[1]; // Bearer {token}
     }
     if (!token) {
+      // Swal.fire( "User unauthorized","","success");
       response.status(401).json({ msg: "User unauthorized" });
+
     }
 
     const verifiedToken = await jwt.verify(token, process.env.JWT_SECRET_KEY);   

@@ -116,9 +116,11 @@ client as a response to the login request. */
  */
 router.get("/me", authenticate, async (request, response) => {
   try {
-    let user = await User.findById(request.user.id).select("-password");
+
+  
+    let user = await User.findById(request.user.id).select(["-password","-isAdmin"]);
     response.status(200).json({
-      user: user,
+      user: user
     });
   } catch (error) {
     console.error(error);
